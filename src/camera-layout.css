@@ -1,6 +1,0 @@
-/* Bố cục tập trung vào thao tác camera trên mọi kích thước màn hình. */
-.workspace {
-  display: block;
-  max-width: 800px;
-  margin-inline: auto;
-}
