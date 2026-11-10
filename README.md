@@ -36,11 +36,9 @@ Các công việc chính:
 - Dùng `getUserMedia()` để xin quyền và lấy luồng camera, ưu tiên camera trước.
 - Hiển thị video trong trang, chú ý `playsInline` trên Safari iOS.
 - Chụp frame từ video, xem ảnh và cho phép chụp lại; xử lý trường hợp không mở được camera.
-- Thử tích hợp phát hiện khuôn mặt trên trình duyệt và kiểm thử trên thiết bị sẵn có.
 
-Prototype tuần 1 đã được phát triển trên nhánh [`HuyHoang`](../../tree/HuyHoang). Đã thử mở camera, chụp ảnh và phát hiện mặt trên máy tính; người dùng xác nhận camera hoạt động khi mở bằng Safari trực tiếp trên iPhone. Các trường hợp lỗi và từng thiết bị vẫn cần tiếp tục được ghi nhận. Lần thử bằng trình duyệt tích hợp Zalo gặp hiện tượng toàn màn hình và đơ khung hình; chưa xác nhận đã xử lý triệt để.
 
-Phát hiện khuôn mặt chỉ cho biết có khuôn mặt trong hình, chưa xác minh danh tính hay kiểm tra người thật.
+Prototype tuần 1 đã được phát triển trên nhánh [`HuyHoang`](../../tree/HuyHoang). Đã thử mở camera, chụp ảnh và phát hiện mặt trên máy tính; người dùng xác nhận camera hoạt động khi mở bằng Safari trực tiếp trên iPhone. Các trường hợp lỗi và từng thiết bị vẫn cần tiếp tục được ghi nhận.
 
 ## Tổ chức nhánh
 
