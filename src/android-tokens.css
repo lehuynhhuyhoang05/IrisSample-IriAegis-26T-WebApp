@@ -1,0 +1,148 @@
+/*
+ * Trích xuất từ Android app/src/main/res/values/{colors,dimens,styles}.xml
+ * và drawable/*.xml. dp/sp được ánh xạ gần đúng sang px cho prototype Web;
+ * Android elevation không tương đương trực tiếp CSS box-shadow.
+ * Màu Android #AARRGGBB chuyển sang CSS #RRGGBBAA.
+ */
+:root {
+  /* colors.xml — giữ tên Android để truy vết */
+  --android-colorPrimary: #66cfcf;
+  --android-colorPrimaryDark: #3ba8a8;
+  --android-colorPrimaryLight: #a8e6e6;
+  --android-colorAccent: #ff8a65;
+  --android-colorSecondary: #4db6ac;
+  --android-colorSecondaryDark: #00897b;
+  --android-colorSecondaryLight: #b2dfdb;
+  --android-colorBackground: #f5fafa;
+  --android-colorSurface: #ffffff;
+  --android-colorCard: #ffffff;
+  --android-colorCardElevated: #f8fffe;
+  --android-colorTextPrimary: #263238;
+  --android-colorTextSecondary: #607d8b;
+  --android-colorTextHint: #90a4ae;
+  --android-colorTextOnPrimary: #ffffff;
+  --android-colorTextOnAccent: #ffffff;
+  --android-colorTextDark: #1b2631;
+  --android-colorSuccess: #43a047;
+  --android-colorSuccessLight: #e8f5e9;
+  --android-colorError: #e53935;
+  --android-colorErrorLight: #ffebee;
+  --android-colorWarning: #fb8c00;
+  --android-colorWarningLight: #fff3e0;
+  --android-colorInfo: #039be5;
+  --android-colorInfoLight: #e1f5fe;
+  --android-colorDivider: #e0e0e0;
+  --android-colorShadow: #00000014;
+  --android-colorRipple: #66cfcf22;
+  --android-colorOverlay: #00000066;
+  --android-colorInputBg: #f5f8f8;
+  --android-colorInputStroke: #cfd8dc;
+  --android-colorInputStrokeFocused: #66cfcf;
+  --android-gradientStart: #66cfcf;
+  --android-gradientMiddle: #56bdb8;
+  --android-gradientEnd: #3ba8a8;
+  --android-headerGradientStart: #4db6b6;
+  --android-headerGradientEnd: #2d9e9e;
+  --android-cardAccentBlue: #e0f7fa;
+  --android-cardAccentTeal: #e0f2f1;
+  --android-cardAccentOrange: #fff3e0;
+  --android-cardAccentGreen: #e8f5e9;
+  --android-cardAccentRed: #ffebee;
+  --android-cardAccentPurple: #f3e5f5;
+  --android-colorIris: #7e57c2;
+  --android-colorIrisLight: #ede7f6;
+  --android-colorDemo: #f4511e;
+  --android-colorDemoLight: #fbe9e7;
+  --android-tabActive: #66cfcf;
+  --android-tabInactive: #b0bec5;
+
+  /* dimens.xml */
+  --android-btn-distance: 10px;
+
+  /* styles.xml — số đo và text; px trên Web chỉ là xấp xỉ dp/sp */
+  --android-button-font-size: 15px;
+  --android-button-text-font-size: 14px;
+  --android-button-padding-block: 14px;
+  --android-button-padding-inline: 24px;
+  --android-button-text-padding: 12px;
+  --android-button-letter-spacing: 0.01em;
+  --android-button-elevation: 2px;
+  --android-card-radius: 16px;
+  --android-card-elevation: 2px;
+  --android-card-padding: 20px;
+  --android-card-elevated-radius: 20px;
+  --android-card-elevated-elevation: 6px;
+  --android-card-elevated-padding: 24px;
+  --android-title-size: 22px;
+  --android-title-letter-spacing: -0.01em;
+  --android-section-header-size: 13px;
+  --android-section-header-letter-spacing: 0.08em;
+  --android-subtitle-size: 15px;
+  --android-subtitle-line-spacing-extra: 4px;
+  --android-caption-size: 12px;
+  --android-input-layout-radius: 12px;
+  --android-badge-size: 11px;
+  --android-badge-padding-block: 4px;
+  --android-badge-padding-inline: 10px;
+  --android-form-label-size: 13px;
+  --android-form-label-letter-spacing: 0.04em;
+  --android-form-label-margin-bottom: 6px;
+
+  /* drawable — dạng, kích thước và màu có tên theo chức năng */
+  --android-button-radius: 12px;
+  --android-button-ripple: #ffffff2d;
+  --android-button-primary-end: #4db8b8;
+  --android-button-secondary-stroke: 1.5px;
+  --android-button-iris-end: #9575cd;
+  --android-notice-radius: 10px;
+  --android-notice-border-width: 1px;
+  --android-notice-padding-block: 12px;
+  --android-notice-padding-inline: 16px;
+  --android-student-row-radius: 14px;
+  --android-student-selected-bg: #e3f2fd;
+  --android-student-selected-border: #2196f3;
+  --android-student-selected-border-width: 2px;
+  --android-search-radius: 24px;
+  --android-subject-code-radius: 6px;
+  --android-card-drawable-padding: 16px;
+  --android-dashboard-card-padding: 24px;
+  --android-input-radius: 10px;
+  --android-input-padding-block: 14px;
+  --android-input-padding-inline: 16px;
+  --android-avatar-border-width: 3px;
+  --android-avatar-size: 100px;
+  --android-initials-size: 48px;
+  --android-icon-circle-bg: #e0f7f7;
+  --android-icon-circle-size: 48px;
+  --android-card-top-accent-height: 4px;
+  --android-login-gradient-middle: #5ac4c0;
+
+  /* Màu literal khác trong layout/drawable: tên theo giá trị, không suy diễn vai trò. */
+  --android-literal-000000: #000000;
+  --android-literal-00000000: #00000000;
+  --android-literal-00796b: #00796b;
+  --android-literal-008577: #008577;
+  --android-literal-212121: #212121;
+  --android-literal-2196f3: #2196f3;
+  --android-literal-2266cfcf: #66cfcf22;
+  --android-literal-26a69a: #26a69a;
+  --android-literal-2dffffff: #ffffff2d;
+  --android-literal-33ffffff: #ffffff33;
+  --android-literal-388e3c: #388e3c;
+  --android-literal-4caf50: #4caf50;
+  --android-literal-757575: #757575;
+  --android-literal-78909c: #78909c;
+  --android-literal-80ffffff: #ffffff80;
+  --android-literal-9e9e9e: #9e9e9e;
+  --android-literal-b0ffffff: #ffffffb0;
+  --android-literal-b3ffffff: #ffffffb3;
+  --android-literal-bdbdbd: #bdbdbd;
+  --android-literal-cc000000: #000000cc;
+  --android-literal-cccccc: #cccccc;
+  --android-literal-ccffffff: #ffffffcc;
+  --android-literal-d0ffffff: #ffffffd0;
+  --android-literal-d32f2f: #d32f2f;
+  --android-literal-e65100: #e65100;
+  --android-literal-f44336: #f44336;
+  --android-literal-f5f5f5: #f5f5f5;
+}
