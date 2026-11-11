@@ -1,6 +1,124 @@
-/* Bố cục tập trung vào thao tác camera trên mọi kích thước màn hình. */
-.workspace {
-  display: block;
-  max-width: 800px;
+/* Một khung camera dọc; trạng thái và thao tác nằm ngoài ảnh. */
+.main {
+  width: 100%;
+  max-width: 440px;
   margin-inline: auto;
+  padding: 34px 20px 40px;
+}
+
+.heading {
+  display: block;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.heading h1 {
+  color: var(--android-colorTextPrimary);
+  font-size: clamp(23px, 5vw, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+}
+
+.heading p {
+  margin: 8px 0 0;
+  color: var(--android-colorTextSecondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.workspace { display: block; width: 100%; }
+
+.camera-card {
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  overflow: hidden;
+  background: #102121;
+  border-radius: 24px;
+  box-shadow: 0 12px 35px #163f3b1a;
+}
+
+.viewport video, .viewport img {
+  object-fit: cover;
+  object-position: center;
+  background: #102121;
+}
+
+.camera-placeholder { color: #e1efeb; padding: 20px; }
+.camera-placeholder span { color: #b3cac5; }
+.camera-symbol { color: #b8ece1; background: #29413e; }
+
+.face-guide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 66%;
+  max-width: 260px;
+  height: auto;
+  max-height: 78%;
+  aspect-ratio: 3 / 4;
+  transform: translate(-50%, -50%);
+  border: 2px solid #ffffffe0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #00000038, inset 0 0 0 1px #00000038;
+  pointer-events: none;
+  transition: border-color 0.2s ease;
+}
+
+.face-guide.detected { border-color: #8ce2c8; }
+.photo-label { top: 14px; left: 14px; }
+
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 18px;
+  padding: 20px 0 0;
+  background: transparent;
+}
+
+.detect-status {
+  justify-content: center;
+  min-height: 20px;
+  gap: 8px;
+  color: var(--android-colorTextSecondary);
+}
+
+.detect-status strong { color: inherit; font-size: 13px; font-weight: 600; }
+.status-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: #90a4ae; }
+.status-dot.success { background: #278a6b; }
+.actions { display: flex; width: 100%; gap: 10px; }
+.actions .btn { min-height: 50px; font-size: 14px; }
+.actions .secondary { flex: 1; padding-inline: 12px; color: #246d6d; }
+.actions .primary { flex: 1.25; }
+.camera-card .error { margin: 16px 0 0; }
+
+@media (max-width: 520px) {
+  .main { padding: 24px 20px 32px; }
+  .heading { margin: 0 0 20px; }
+  .heading h1 { font-size: 23px; }
+  .camera-card { padding: 0; border-radius: 0; }
+  .viewport { min-height: 0; max-height: none; border-radius: 20px; }
+  .card-bottom { padding: 18px 0 0; }
+}
+
+@media (max-width: 360px) {
+  .actions .btn { font-size: 12px; gap: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face-guide { transition: none; }
 }

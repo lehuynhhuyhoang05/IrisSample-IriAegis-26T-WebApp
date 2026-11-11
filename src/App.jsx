@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
-import { Camera, CameraOff, Check, CircleHelp, Focus, Image as ImageIcon, RefreshCcw, ScanFace, ShieldCheck, X } from 'lucide-react'
+import { Camera, CameraOff, Check, RefreshCcw, X } from 'lucide-react'
 import { FaceDetector, FilesetResolver } from '@mediapipe/tasks-vision'
+import { getCoverCrop } from './camera-crop.js'
+import androidLogo from './assets/android/ic_app_logo.png'
+import androidWarning from './assets/android/ic_warning.svg'
 
 const WASM = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm'
 const MODEL = 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite'
@@ -140,11 +143,13 @@ export default function App() {
       setError('Hình ảnh camera đang bị gián đoạn. Hãy mở lại camera trước khi chụp.')
       return
     }
+    if (!video.clientWidth || !video.clientHeight) { setError('Khung camera chưa sẵn sàng. Hãy thử lại.'); return }
+    const crop = getCoverCrop(video.videoWidth, video.videoHeight, video.clientWidth, video.clientHeight)
     const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth; canvas.height = video.videoHeight
+    canvas.width = crop.width; canvas.height = crop.height
     const ctx = canvas.getContext('2d')
     ctx.translate(canvas.width, 0); ctx.scale(-1, 1)
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    ctx.drawImage(video, crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height)
     const image = canvas.toDataURL('image/jpeg', 0.92)
     stop(); setError(''); setPhoto(image)
   }
@@ -152,21 +157,20 @@ export default function App() {
   const faceText = { idle: 'Đang chờ camera', loading: 'Đang tải bộ phát hiện...', searching: 'Chưa thấy khuôn mặt', found: count > 1 ? `Phát hiện ${count} khuôn mặt` : 'Đã phát hiện khuôn mặt', error: 'Không tải được bộ phát hiện' }[face]
 
   return <div className="app-shell">
-    <header className="topbar"><div className="brand"><span className="brand-icon"><ScanFace size={22}/></span><span>Iri<span>Aegis</span><small>ATTENDANCE SYSTEM</small></span></div><div className="top-right"><span className="prototype"><span/> Bản thử nghiệm</span><span className="avatar">IA</span></div></header>
-    <main className="main"><div className="eyebrow"><span/> KHÔNG GIAN ĐIỂM DANH</div><div className="heading"><div><h1>Ghi nhận khuôn mặt<span>.</span></h1><p>Chụp một bức ảnh rõ nét để bắt đầu.</p></div><div className="secure"><ShieldCheck size={16}/> Ảnh chỉ hiển thị trên thiết bị</div></div>
-      <div className="workspace"><section className="camera-card"><div className="card-top"><div><div className="section-kicker">CAMERA CỦA BẠN</div><h2>Chụp ảnh khuôn mặt</h2></div><span className={'camera-state ' + (camera === 'active' ? 'on' : '')}><i/> {camera === 'active' ? 'Camera đang bật' : 'Camera đang tắt'}</span></div>
+    <header className="topbar"><div className="brand"><span className="brand-icon"><img src={androidLogo} alt="" /></span><span>Iri<span>Aegis</span><small>ATTENDANCE SYSTEM</small></span></div><div className="top-right"><span className="prototype"><span/> Bản thử nghiệm</span><span className="avatar">IA</span></div></header>
+    <main className="main"><div className="heading"><h1>Chụp ảnh khuôn mặt</h1><p>Đặt khuôn mặt vào giữa khung hình</p></div>
+      <div className="workspace"><section className="camera-card" aria-label="Chụp ảnh khuôn mặt">
         <div className={'viewport ' + (photo ? 'has-photo' : '')}>
           <video ref={videoRef} autoPlay muted playsInline disablePictureInPicture className={camera === 'active' && !photo ? 'visible' : ''} />
           {photo && <img src={photo} alt="Ảnh khuôn mặt vừa chụp" />}
           {!photo && camera !== 'active' && <div className="camera-placeholder"><div className="camera-symbol"><Camera size={32} strokeWidth={1.6}/></div><strong>{camera === 'loading' ? 'Đang kết nối camera...' : 'Sẵn sàng khi bạn sẵn sàng'}</strong><span>Bật camera để bắt đầu chụp ảnh</span></div>}
-          {camera === 'active' && !photo && <><div className="face-guide"><span/><span/><span/><span/></div><div className="live-label"><i/> TRỰC TIẾP</div><div className="viewport-tip">Đặt khuôn mặt vào giữa khung hình</div></>}
+          {camera === 'active' && !photo && <div className={'face-guide' + (face === 'found' ? ' detected' : '')} aria-hidden="true"/>}
           {photo && <div className="photo-label"><Check size={14}/> ẢNH ĐÃ CHỤP</div>}
         </div>
-        <div className="card-bottom"><div className="detect-status" aria-live="polite"><span className={'status-icon ' + (face === 'found' ? 'success' : '')}><Focus size={16}/></span><div><strong>{photo ? 'Ảnh xem trước' : faceText}</strong><small>{photo ? 'Kiểm tra ảnh trước khi tiếp tục' : face === 'error' ? 'Kiểm tra mạng; bạn vẫn có thể chụp ảnh' : 'Chỉ phát hiện mặt, không xác minh danh tính'}</small></div></div>
-          <div className="actions">{camera === 'active' ? <><button className="btn secondary icon-button" onClick={stop} aria-label="Tắt camera" title="Tắt camera"><CameraOff size={18}/></button><button className="btn secondary icon-button" onClick={start} aria-label="Mở lại camera" title="Mở lại camera"><RefreshCcw size={18}/></button><button className="btn primary" onClick={capture}><Camera size={18}/> Chụp ảnh</button></> : <button className="btn primary" onClick={start} disabled={camera === 'loading'}>{photo ? <RefreshCcw size={18}/> : <Camera size={18}/>} {photo ? 'Chụp lại' : camera === 'loading' ? 'Đang mở...' : 'Bật camera'}</button>}</div></div>
-        {interrupted && camera === 'active' && <div className="error" role="alert"><CircleHelp size={17}/>Video tạm dừng. <button onClick={start}>Mở lại camera</button></div>}
-        {error && <div className="error" role="alert"><CircleHelp size={17}/>{error}<button onClick={() => setError('')} aria-label="Đóng"><X size={16}/></button></div>}
+        <div className="card-bottom"><div className="detect-status" role="status" aria-live="polite"><span className={'status-dot ' + (face === 'found' ? 'success' : '')} aria-hidden="true"/><strong>{photo ? 'Ảnh xem trước' : faceText}</strong></div>
+          <div className="actions">{camera === 'active' ? <><button className="btn secondary" onClick={stop}><CameraOff size={18}/> Tắt camera</button><button className="btn primary" onClick={capture}><Camera size={18}/> Chụp ảnh</button></> : <button className="btn primary" onClick={start} disabled={camera === 'loading'}>{photo ? <RefreshCcw size={18}/> : <Camera size={18}/>} {photo ? 'Chụp lại' : camera === 'loading' ? 'Đang mở...' : 'Bật camera'}</button>}</div></div>
+        {interrupted && camera === 'active' && <div className="error" role="alert"><img className="android-notice-icon" src={androidWarning} alt="" />Video tạm dừng. <button onClick={start}>Mở lại camera</button></div>}
+        {error && <div className="error" role="alert"><img className="android-notice-icon" src={androidWarning} alt="" />{error}<button onClick={() => setError('')} aria-label="Đóng"><X size={16}/></button></div>}
       </section></div>
-      <footer><span><ImageIcon size={15}/> IriAegis · Web prototype</span><span>Thiết kế dựa trên giao diện Android</span></footer>
     </main></div>
 }
