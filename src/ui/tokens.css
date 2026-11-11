@@ -1,0 +1,40 @@
+/* Web semantic tokens. Android originals remain in android-tokens.css. */
+.aegis-ui {
+  --ui-brand: var(--android-colorPrimary);
+  --ui-action: #236e69;
+  --ui-action-hover: #19534f;
+  --ui-accent-bg: #e7f3f0;
+  --ui-text: var(--android-colorTextPrimary);
+  --ui-muted: #53666e;
+  --ui-surface: var(--android-colorSurface);
+  --ui-canvas: #f7f9f8;
+  --ui-border: #dbe3e0;
+  --ui-control-border: #81958e;
+  --ui-success: #27633e;
+  --ui-success-bg: var(--android-colorSuccessLight);
+  --ui-warning: #81520c;
+  --ui-warning-bg: var(--android-colorWarningLight);
+  --ui-danger: #ad302c;
+  --ui-danger-bg: var(--android-colorErrorLight);
+  --ui-info: #235f83;
+  --ui-info-bg: #edf5fa;
+  --ui-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ui-text-xs: 0.75rem;
+  --ui-text-sm: 0.875rem;
+  --ui-text-base: 1rem;
+  --ui-title: clamp(1.5rem, 3vw, 1.875rem);
+  --ui-space-1: 4px;
+  --ui-space-2: 8px;
+  --ui-space-3: 12px;
+  --ui-space-4: 16px;
+  --ui-space-5: 20px;
+  --ui-space-6: 24px;
+  --ui-space-8: 32px;
+  --ui-space-10: 40px;
+  --ui-radius-sm: 6px;
+  --ui-radius-md: 8px;
+  --ui-radius-lg: 12px;
+  --ui-control-height: 44px;
+  --ui-focus: 0 0 0 3px #c1e4dd;
+  --ui-shadow-dialog: 0 24px 70px #162b2b26;
+}

@@ -1,0 +1,197 @@
+/* Scope every selector: the camera prototype keeps its own styles. */
+.aegis-ui { min-height: 100dvh; display: grid; grid-template-columns: 224px minmax(0, 1fr); background: var(--ui-surface); color: var(--ui-text); font: 400 var(--ui-text-base)/1.5 var(--ui-font); -webkit-font-smoothing: antialiased; }
+.aegis-ui *, .aegis-ui *::before, .aegis-ui *::after { box-sizing: border-box; }
+.aegis-ui h1, .aegis-ui h2, .aegis-ui h3, .aegis-ui p { margin: 0; }
+.aegis-ui a { color: inherit; text-decoration: none; }
+.aegis-ui button, .aegis-ui input, .aegis-ui select, .aegis-ui textarea { font: inherit; }
+.aegis-ui :focus-visible { outline: 2px solid var(--ui-action); outline-offset: 3px; }
+.aegis-ui code { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: .85em; }
+.aegis-ui .ui-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.aegis-ui .ui-skip { position: fixed; top: -100px; left: 12px; z-index: 100; background: var(--ui-surface); padding: 12px; }
+.aegis-ui .ui-skip:focus { top: 12px; }
+.aegis-ui .ui-sidebar { background: var(--ui-canvas); border-right: 1px solid var(--ui-border); padding: 32px 16px 20px; position: sticky; top: 0; height: 100dvh; display: flex; flex-direction: column; }
+.aegis-ui .ui-brand { display: flex; align-items: center; gap: 10px; padding: 0 10px 44px; font-size: 22px; font-weight: 700; letter-spacing: -.6px; line-height: 1.2; }
+.aegis-ui .ui-brand img { width: 36px; height: 36px; object-fit: contain; }
+.aegis-ui .ui-brand small { display: block; font-size: 11px; margin-top: 5px; font-weight: 400; letter-spacing: 0; color: var(--ui-muted); }
+.aegis-ui .ui-sidebar-label { padding: 0 12px 12px; font-size: 10px; letter-spacing: 1.4px; font-weight: 650; color: var(--ui-muted); }
+.aegis-ui .ui-sidebar nav { display: flex; flex-direction: column; gap: 6px; }
+.aegis-ui .ui-sidebar nav a { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 10px 12px; font-size: 14px; border-radius: var(--ui-radius-sm); color: var(--ui-muted); }
+.aegis-ui .ui-sidebar nav a:hover { background: #edf1ef; color: var(--ui-text); }
+.aegis-ui .ui-sidebar nav a.is-active { background: var(--ui-accent-bg); color: var(--ui-action); font-weight: 650; }
+.aegis-ui .ui-sidebar-bottom { margin-top: auto; border-top: 1px solid var(--ui-border); padding: 20px 10px 0; }
+.aegis-ui .ui-sidebar-bottom a { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--ui-action); min-height: 44px; }
+.aegis-ui .ui-sidebar-bottom p { font-size: 11px; color: var(--ui-muted); margin-top: 8px; }
+.aegis-ui .ui-workarea { min-width: 0; }
+.aegis-ui .ui-topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--ui-border); min-height: 72px; padding: 0 40px; font-size: 12px; color: var(--ui-muted); }
+.aegis-ui .ui-topbar strong { color: var(--ui-text); font-weight: 500; }
+.aegis-ui .ui-topbar > span > span { margin: 0 10px; color: var(--ui-control-border); }
+.aegis-ui .ui-internal { border: 1px solid var(--ui-border); padding: 4px 9px; border-radius: var(--ui-radius-sm); white-space: nowrap; font-size: 11px; }
+.aegis-ui .ui-main { max-width: 1240px; margin: 0 auto; padding: 40px; outline: none; }
+.aegis-ui .ui-page-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 24px; }
+.aegis-ui .ui-eyebrow { color: var(--ui-muted); font-size: 10px; letter-spacing: 1.4px; font-weight: 650; margin-bottom: 12px; }
+.aegis-ui .ui-page-header h1 { font-size: var(--ui-title); font-weight: 650; letter-spacing: -.8px; line-height: 1.25; }
+.aegis-ui .ui-description { font-size: 14px; color: var(--ui-muted); margin-top: 10px; max-width: 620px; }
+.aegis-ui .ui-actions, .aegis-ui .ui-component-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.aegis-ui .ui-button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; gap: 8px; min-height: var(--ui-control-height); border: 1px solid transparent; border-radius: var(--ui-radius-md); padding: 9px 16px; font-size: 14px; line-height: 1.4; font-weight: 600; cursor: pointer; background: var(--ui-action); color: #fff; text-align: center; }
+.aegis-ui .ui-button svg { flex-shrink: 0; }
+.aegis-ui .ui-button:hover:not(:disabled) { background: var(--ui-action-hover); }
+.aegis-ui .ui-button--secondary { background: var(--ui-surface); border-color: var(--ui-control-border); color: var(--ui-text); }
+.aegis-ui .ui-button--secondary:hover:not(:disabled) { background: var(--ui-canvas); }
+.aegis-ui .ui-button--quiet { background: transparent; color: var(--ui-muted); padding-inline: 8px; }
+.aegis-ui .ui-button--quiet:hover:not(:disabled) { background: var(--ui-accent-bg); color: var(--ui-action); }
+.aegis-ui .ui-button--danger { background: var(--ui-danger); }
+.aegis-ui .ui-button--danger:hover:not(:disabled) { background: #872421; }
+.aegis-ui .ui-button:disabled { opacity: .55; cursor: not-allowed; }
+.aegis-ui .ui-icon-button { width: 44px; padding: 0; }
+.aegis-ui .ui-demo-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ui-muted); margin: 0 0 28px; }
+.aegis-ui .ui-demo-dot { background: var(--ui-control-border); width: 5px; height: 5px; border-radius: 50%; flex: none; }
+.aegis-ui .ui-toolbar { display: flex; align-items: flex-end; gap: 16px; padding: 20px 0; border-top: 1px solid var(--ui-border); }
+.aegis-ui .ui-toolbar .ui-search { flex: 1; }
+.aegis-ui .ui-toolbar .ui-field { width: 205px; }
+.aegis-ui .ui-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.aegis-ui .ui-field label { font-size: 13px; font-weight: 600; }
+.aegis-ui .ui-required { color: var(--ui-danger); }
+.aegis-ui .ui-input { display: block; width: 100%; min-width: 0; min-height: var(--ui-control-height); color: var(--ui-text); background: var(--ui-surface); border: 1px solid var(--ui-control-border); border-radius: var(--ui-radius-md); padding: 10px 12px; font-size: 14px; line-height: 1.4; }
+.aegis-ui .ui-input::placeholder { color: var(--ui-muted); opacity: 1; }
+.aegis-ui .ui-input:focus { outline: 2px solid var(--ui-action); outline-offset: 1px; box-shadow: var(--ui-focus); }
+.aegis-ui .ui-input[aria-invalid='true'] { border-color: var(--ui-danger); }
+.aegis-ui .ui-input:disabled { background: var(--ui-canvas); color: var(--ui-muted); cursor: not-allowed; }
+.aegis-ui textarea.ui-input { resize: vertical; }
+.aegis-ui .ui-field-error { color: var(--ui-danger); font-size: 12px; }
+.aegis-ui .ui-hint { color: var(--ui-muted); font-size: 12px; line-height: 1.6; }
+.aegis-ui .ui-search { position: relative; min-width: 0; }
+.aegis-ui .ui-search > svg { position: absolute; top: 50%; left: 13px; transform: translateY(-50%); color: var(--ui-muted); pointer-events: none; }
+.aegis-ui .ui-search .ui-input { padding-left: 40px; }
+.aegis-ui .ui-table-wrap { border: 1px solid var(--ui-border); border-radius: var(--ui-radius-md); overflow: hidden; }
+.aegis-ui .ui-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+.aegis-ui .ui-table th { color: var(--ui-muted); font-size: 12px; font-weight: 600; background: var(--ui-canvas); padding: 12px 18px; white-space: nowrap; }
+.aegis-ui .ui-table td { padding: 14px 18px; border-top: 1px solid var(--ui-border); overflow-wrap: anywhere; }
+.aegis-ui .ui-table tbody tr:hover { background: #fbfdfc; }
+.aegis-ui .ui-person { display: flex; align-items: center; gap: 12px; }
+.aegis-ui .ui-person > span:last-child { min-width: 0; }
+.aegis-ui .ui-initials { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: #eef3f1; color: var(--ui-action); font-size: 11px; font-weight: 650; }
+.aegis-ui .ui-person strong { display: block; font-size: 14px; font-weight: 600; }
+.aegis-ui .ui-person small { display: block; color: var(--ui-muted); font-size: 11px; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.aegis-ui .ui-row-actions { display: flex; gap: 2px; }
+.aegis-ui .ui-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: var(--ui-radius-sm); font-size: 11px; line-height: 1.5; white-space: nowrap; color: var(--ui-muted); background: #eef2f0; }
+.aegis-ui .ui-badge > span { height: 5px; width: 5px; border-radius: 50%; background: currentColor; }
+.aegis-ui .ui-badge--success { color: var(--ui-success); background: var(--ui-success-bg); }
+.aegis-ui .ui-badge--warning { color: var(--ui-warning); background: var(--ui-warning-bg); }
+.aegis-ui .ui-badge--danger { color: var(--ui-danger); background: var(--ui-danger-bg); }
+.aegis-ui .ui-list-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 12px; font-size: 12px; color: var(--ui-muted); }
+.aegis-ui .ui-list-footer .ui-button { font-size: 12px; }
+.aegis-ui .ui-reference-note { border-top: 1px solid var(--ui-border); margin-top: 40px; padding-top: 24px; max-width: 700px; font-size: 13px; color: var(--ui-muted); }
+.aegis-ui .ui-reference-note strong { color: var(--ui-text); font-weight: 600; }
+.aegis-ui .ui-reference-note p { margin-top: 8px; }
+.aegis-ui .ui-notice { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; border-radius: var(--ui-radius-md); font-size: 13px; color: var(--ui-info); background: var(--ui-info-bg); margin-bottom: 16px; }
+.aegis-ui .ui-notice > svg { flex: none; margin-top: 1px; }
+.aegis-ui .ui-notice > div { flex: 1; }
+.aegis-ui .ui-notice strong { font-weight: 650; }
+.aegis-ui .ui-notice strong + p { margin-top: 4px; }
+.aegis-ui .ui-notice .ui-icon-button { margin: -10px -12px -10px 0; color: inherit; }
+.aegis-ui .ui-notice--success { color: var(--ui-success); background: var(--ui-success-bg); }
+.aegis-ui .ui-notice--warning { color: var(--ui-warning); background: var(--ui-warning-bg); }
+.aegis-ui .ui-notice--danger { color: var(--ui-danger); background: var(--ui-danger-bg); }
+.aegis-ui .ui-empty { text-align: center; padding: 52px 24px; border-block: 1px solid var(--ui-border); }
+.aegis-ui .ui-empty > svg { color: var(--ui-muted); margin: 0 auto 12px; }
+.aegis-ui .ui-empty h3 { font-size: 17px; font-weight: 600; }
+.aegis-ui .ui-empty p { margin: 8px 0 20px; color: var(--ui-muted); font-size: 14px; }
+.aegis-ui .ui-loading { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 70px 20px; color: var(--ui-muted); font-size: 14px; }
+.aegis-ui .ui-spin { animation: ui-spin 1s linear infinite; }
+@keyframes ui-spin { to { transform: rotate(360deg); } }
+.aegis-ui .ui-dialog { width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--ui-border); border-radius: var(--ui-radius-lg); box-shadow: var(--ui-shadow-dialog); margin: auto; background: var(--ui-surface); color: var(--ui-text); overflow: auto; }
+.aegis-ui .ui-dialog::backdrop { background: #15282580; }
+.aegis-ui .ui-dialog-heading { display: flex; align-items: flex-start; gap: 12px; padding: 24px 24px 20px; border-bottom: 1px solid var(--ui-border); }
+.aegis-ui .ui-dialog-heading > div { flex: 1; }
+.aegis-ui .ui-dialog-heading .ui-icon-button { margin: -8px -10px 0 0; }
+.aegis-ui .ui-dialog h2 { font-size: 20px; font-weight: 650; }
+.aegis-ui .ui-dialog-heading p { font-size: 13px; color: var(--ui-muted); margin-top: 8px; }
+.aegis-ui .ui-dialog-body { padding: 24px; font-size: 14px; }
+.aegis-ui .ui-dialog-footer { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; padding: 16px 24px; border-top: 1px solid var(--ui-border); background: var(--ui-canvas); }
+.aegis-ui .ui-form-stack { display: flex; flex-direction: column; gap: 20px; }
+.aegis-ui .ui-spec-section { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 24px; padding: 32px 0; border-top: 1px solid var(--ui-border); }
+.aegis-ui .ui-spec-heading span { font-size: 11px; color: var(--ui-muted); }
+.aegis-ui .ui-spec-heading h2 { font-size: 16px; font-weight: 600; margin-top: 8px; }
+.aegis-ui .ui-spec-content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.aegis-ui .ui-spec-intro { color: var(--ui-muted); font-size: 14px; }
+.aegis-ui .ui-code { margin: 0; background: var(--ui-canvas); border: 1px solid var(--ui-border); border-radius: var(--ui-radius-sm); padding: 16px; overflow: auto; color: #375951; font-size: 13px; line-height: 1.8; }
+.aegis-ui .ui-example-form { display: grid; gap: 20px; max-width: 480px; }
+.aegis-ui .ui-link { display: inline-flex; gap: 8px; align-items: center; color: var(--ui-action); font-size: 14px; min-height: 44px; }
+.aegis-ui .ui-state-preview { border: 1px solid var(--ui-border); border-radius: var(--ui-radius-md); }
+.aegis-ui .ui-state-preview .ui-empty { border: 0; }
+.aegis-ui .ui-swatch-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 16px; }
+.aegis-ui .ui-swatch > div { height: 64px; border: 1px solid #00000012; border-radius: var(--ui-radius-sm); margin-bottom: 10px; }
+.aegis-ui .ui-swatch strong, .aegis-ui .ui-swatch code, .aegis-ui .ui-swatch span { display: block; font-size: 11px; line-height: 1.7; }
+.aegis-ui .ui-swatch code, .aegis-ui .ui-swatch span { color: var(--ui-muted); }
+.aegis-ui .ui-type-row { border-bottom: 1px solid var(--ui-border); padding-bottom: 20px; }
+.aegis-ui .ui-type-row > span { display: block; font-size: 11px; color: var(--ui-muted); margin-bottom: 10px; }
+.aegis-ui .ui-type-title { font-size: var(--ui-title); font-weight: 650; letter-spacing: -.8px; }
+.aegis-ui .ui-type-label { font-size: 14px; }
+.aegis-ui .ui-spacing-scale { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.aegis-ui .ui-spacing-scale > div { display: flex; align-items: center; flex-direction: column; gap: 8px; font-size: 11px; color: var(--ui-muted); }
+.aegis-ui .ui-spacing-scale i { display: block; background: var(--ui-brand); }
+.aegis-ui .ui-icon-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px 16px; }
+.aegis-ui .ui-icon-grid > div { display: flex; flex-direction: column; gap: 10px; font-size: 11px; color: var(--ui-muted); }
+.aegis-ui .ui-icon-grid svg { color: var(--ui-text); }
+.aegis-ui .ui-rules-list { margin: 0; }
+.aegis-ui .ui-rules-list > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--ui-border); font-size: 14px; }
+.aegis-ui .ui-rules-list dt { font-weight: 600; }
+.aegis-ui .ui-rules-list dd { margin: 0; color: var(--ui-muted); }
+.aegis-ui .ui-guide-steps { list-style: none; padding: 0; margin: 0; }
+.aegis-ui .ui-guide-steps > li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding: 28px 0; border-top: 1px solid var(--ui-border); }
+.aegis-ui .ui-guide-steps > li > span { color: var(--ui-action); font-size: 12px; padding-top: 5px; }
+.aegis-ui .ui-guide-steps h2 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+.aegis-ui .ui-guide-steps p { color: var(--ui-muted); font-size: 14px; line-height: 1.7; }
+.aegis-ui .ui-guide-steps .ui-code { margin-top: 20px; }
+@media (max-width: 1100px) {
+  .aegis-ui .ui-main { padding: 32px 24px; }
+  .aegis-ui .ui-spec-section { grid-template-columns: 140px minmax(0, 1fr); }
+  .aegis-ui .ui-swatch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aegis-ui .ui-table td, .aegis-ui .ui-table th { padding-inline: 12px; }
+}
+@media (max-width: 899px) {
+  .aegis-ui { display: block; }
+  .aegis-ui .ui-sidebar { height: auto; position: static; border-right: 0; border-bottom: 1px solid var(--ui-border); padding: 20px 24px 12px; }
+  .aegis-ui .ui-brand { padding: 0 0 20px; }
+  .aegis-ui .ui-sidebar-label, .aegis-ui .ui-sidebar-bottom p { display: none; }
+  .aegis-ui .ui-sidebar nav { flex-direction: row; flex-wrap: wrap; }
+  .aegis-ui .ui-sidebar nav a { font-size: 12px; padding: 8px 10px; gap: 8px; }
+  .aegis-ui .ui-sidebar-bottom { position: absolute; top: 20px; right: 24px; margin: 0; border: 0; padding: 0; }
+  .aegis-ui .ui-sidebar-bottom a { gap: 8px; }
+  .aegis-ui .ui-topbar { padding: 0 24px; min-height: 52px; }
+}
+@media (max-width: 639px) {
+  .aegis-ui .ui-sidebar { padding: 20px 16px 12px; }
+  .aegis-ui .ui-brand { font-size: 20px; }
+  .aegis-ui .ui-sidebar-bottom { right: 16px; }
+  .aegis-ui .ui-sidebar-bottom a { font-size: 11px; }
+  .aegis-ui .ui-topbar { padding: 0 16px; font-size: 10px; }
+  .aegis-ui .ui-internal { font-size: 10px; }
+  .aegis-ui .ui-main { padding: 28px 16px 40px; }
+  .aegis-ui .ui-page-header { display: block; }
+  .aegis-ui .ui-actions { margin-top: 20px; }
+  .aegis-ui .ui-demo-note { align-items: flex-start; }
+  .aegis-ui .ui-demo-dot { margin-top: 6px; }
+  .aegis-ui .ui-toolbar { flex-wrap: wrap; gap: 12px; }
+  .aegis-ui .ui-toolbar .ui-search { flex-basis: 100%; }
+  .aegis-ui .ui-toolbar .ui-field { flex: 1; width: auto; }
+  .aegis-ui .ui-input { font-size: 16px; }
+  .aegis-ui .ui-table-wrap { border-inline: 0; border-radius: 0; }
+  .aegis-ui .ui-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+  .aegis-ui .ui-table, .aegis-ui .ui-table tbody { display: block; }
+  .aegis-ui .ui-table tbody tr { display: block; border-bottom: 1px solid var(--ui-border); padding: 16px 0 8px; }
+  .aegis-ui .ui-table tbody tr:last-child { border: 0; }
+  .aegis-ui .ui-table td { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 7px 0; border: 0; font-size: 13px; }
+  .aegis-ui .ui-table td::before { content: attr(data-label); color: var(--ui-muted); font-size: 12px; }
+  .aegis-ui .ui-table td.ui-cell-main { justify-content: flex-start; padding: 0 0 10px; }
+  .aegis-ui .ui-table td.ui-cell-main::before { display: none; }
+  .aegis-ui .ui-spec-section { display: block; padding: 24px 0; }
+  .aegis-ui .ui-spec-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .aegis-ui .ui-spec-heading h2 { margin: 0; }
+  .aegis-ui .ui-icon-grid { grid-template-columns: repeat(3, 1fr); }
+  .aegis-ui .ui-rules-list > div { grid-template-columns: 100px minmax(0, 1fr); }
+  .aegis-ui .ui-dialog-heading, .aegis-ui .ui-dialog-body { padding: 20px; }
+  .aegis-ui .ui-dialog-footer { padding: 16px 20px; }
+  .aegis-ui .ui-dialog-footer .ui-button { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .aegis-ui .ui-spin { animation: none; } }
