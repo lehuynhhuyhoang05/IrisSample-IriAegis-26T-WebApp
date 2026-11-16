@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, Camera, Download, FileUp, Trash2 } from '../ui/icons'
 import CameraApp from '../App.jsx'
@@ -13,6 +14,7 @@ export function ErrorNotice({ error }) {
   useEffect(() => { if (error) { ref.current?.focus({ preventScroll: true }); ref.current?.scrollIntoView({ block: 'nearest' }) } }, [error])
   return error ? <div ref={ref} tabIndex={-1}><Notice tone="danger" title="Chưa thể hoàn tất">{error}</Notice></div> : null
 }
+
 export function Person({ row }) { return <span className="ui-person">{row.photo ? <img className="portal-avatar" src={row.photo} alt="" /> : <span className="ui-initials">{row.name.split(' ').slice(-2).map(w => w[0]).join('')}</span>}<span><strong>{row.name}</strong><small>{row.id}</small></span></span> }
 export function Confirm({ title, description, onConfirm, onClose, danger = true, requirePassword = false }) {
   const [value, setValue] = useState(''); const task = useTask(); const { actor } = usePortal()
@@ -29,6 +31,7 @@ async function resizePhoto(source) {
   canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height)
   return canvas.toDataURL('image/jpeg', 0.8)
 }
+
 export function PhotoField({ value, onChange }) {
   const [camera, setCamera] = useState(false); const task = useTask()
   const captureRef = useRef(null), trigger = useRef(null)
@@ -47,6 +50,7 @@ const templates = {
   courses: { headers: ['id', 'name', 'instructorId', 'semester', 'startDate', 'endDate', 'day', 'start', 'end', 'room'], values: ['WEB401', 'Thiết kế Web', '', 'Học kỳ 1', `${new Date().getFullYear()}-01-01`, `${new Date().getFullYear()}-12-31`, '1', '07:30', '11:30', 'B.401'] },
   recipients: { headers: ['name', 'email'], values: ['Đào tạo', 'daotao2@demo.test'] },
 }
+
 export function ImportDialog({ entity, courseId, onClose }) {
   const { db, actor, persist, setFlash } = usePortal(), task = useTask()
   const [preview, setPreview] = useState(null)
@@ -71,7 +75,7 @@ export function ImportDialog({ entity, courseId, onClose }) {
   }
   return <Dialog open title="Nhập dữ liệu CSV" description="Xem trước và kiểm tra tất cả dòng. Chỉ thêm mới; mã trùng bị từ chối, không ghi đè. Không có dữ liệu nào được lưu khi còn lỗi." onClose={onClose} footer={<><Button variant="secondary" onClick={onClose}>Hủy</Button><Button disabled={!preview || preview.some(r => r.result !== 'Hợp lệ')} busy={task.busy} onClick={() => task.run(() => { const result = prepare(source); if (result.results.some(r => r.result !== 'Hợp lệ')) throw new Error('Dữ liệu đã thay đổi hoặc CSV còn lỗi. Kiểm tra lại bảng.'); persist(result.candidate); setFlash({ tone: 'success', text: `Đã nhập ${result.results.length} bản ghi demo.` }); onClose() })}>Nhập {preview?.length || 0} bản ghi</Button></>}>
     <Button variant="secondary" icon={Download} onClick={() => download(csvText(template.headers, [template.values]), `${entity}-mau.csv`)}>Tải CSV mẫu</Button>
-    <Field label="File CSV (tối đa 500 dòng)" type="file" accept=".csv,text/csv" onChange={e => { const file = e.target.files?.[0]; setPreview(null); if (!file) return; task.run(async () => { if (file.size > 1000000) throw new Error('CSV tối đa 1 MB.'); const text = await file.text(); setSource(text); prepare(text) }); e.target.value = '' }} />
+    <Field label="File CSV (tối đa 500 dòng)" type="file" accept=".csv,text/csv" onChange={e => { const file = e.target.files?.[0]; setPreview(null); if (entity === 'students') { setSource(''); task.setError('') } if (!file) return; task.run(async () => { if (file.size > 1000000) throw new Error('CSV tối đa 1 MB.'); const text = await file.text(); if (entity === 'students') { prepare(text); setSource(text) } else { setSource(text); prepare(text) } }); e.target.value = '' }} />
     <ErrorNotice error={task.error} />{preview && <DataTable caption="Kết quả kiểm tra CSV" rows={preview} columns={[{ key: 'id', label: 'Dòng' }, { key: 'code', label: 'Mã / email' }, { key: 'name', label: 'Tên' }, { key: 'result', label: 'Kiểm tra' }]} />}
   </Dialog>
 }

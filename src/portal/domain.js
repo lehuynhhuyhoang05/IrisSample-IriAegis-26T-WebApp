@@ -136,6 +136,8 @@ export function command(db, actorId, action) {
     if (entity === 'students') {
       requireThat(!old || studentsFor(next, actor).some(s => s.id === old.id), 'Bạn không được sửa sinh viên này.')
       row.createdBy = old?.createdBy || actor.id
+      // Đề xuất FE (chưa xác nhận với Android/API): email sinh viên không trùng, không phân biệt hoa thường.
+      if (typeof row.email === 'string' && row.email.trim()) requireThat(!next.students.some(s => s.id !== old?.id && s.email?.trim().toLowerCase() === row.email.trim().toLowerCase()), 'Email sinh viên đã tồn tại.')
     }
     validateEntity(next, entity, row, old?.id)
     if (old) next[entity] = next[entity].map(item => item.id === old.id ? row : item)

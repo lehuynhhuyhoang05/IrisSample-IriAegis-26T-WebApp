@@ -8,6 +8,7 @@ import { Catalog, CourseDetail, PersonDetail } from './Catalog.jsx'
 import { Attendance, Home, Reports } from './Attendance.jsx'
 import { Backups, DemoSettings, EmailPage } from './Operations.jsx'
 import { Confirm, go } from './shared.jsx'
+import StudentList from './students/StudentList.jsx'
 import '../ui/tokens.css'
 import '../ui/ui.css'
 import './portal.css'
@@ -26,7 +27,8 @@ function Content({ path }) {
   if (['home', 'login', 'forgot', 'reset', ''].includes(page)) content = <Home />
   else if (page === 'courses' && id) content = <CourseDetail key={id} id={id} />
   else if (['students', 'admins'].includes(page) && id) content = <PersonDetail key={id} entity={page} id={id} />
-  else if (['courses', 'students', 'admins'].includes(page)) content = <Catalog key={page} entity={page} />
+  else if (page === 'students') content = <StudentList key="students" />
+  else if (['courses', 'admins'].includes(page)) content = <Catalog key={page} entity={page} />
   else if (page === 'attendance') content = <Attendance key={course || 'all'} initialCourse={course} />
   else if (page === 'reports') content = <Reports key={course || 'all'} initialCourse={course} />
   else if (page === 'email') content = <EmailPage key={course || 'all'} initialCourse={course} />

@@ -5,6 +5,7 @@ import { usePortal, useTask } from './Store.jsx'
 import { canCourse, coursesFor, dateLabel, dayLabel, DEMO_PASSWORD, fold, isSuper, studentsFor, today, uid } from './domain.js'
 import { Back, Confirm, ErrorNotice, go, ImportDialog, Person, PhotoField } from './shared.jsx'
 import { csvText, download } from './csv.js'
+import EnrollDialog from './students/EnrollDialog.jsx'
 
 const names = { students: 'sinh viên', admins: 'quản trị viên', courses: 'môn học' }
 function defaultRow(entity, actor) {
@@ -87,13 +88,12 @@ export function Catalog({ entity }) {
 }
 
 export function CourseDetail({ id }) {
-  const { db, actor, write } = usePortal(), task = useTask()
+  const { db, actor, write } = usePortal()
   const course = db.courses.find(c => c.id === id)
   const [attendanceFilter, setAttendanceFilter] = useState('all')
-  const [tab, setTab] = useState('students'), [query, setQuery] = useState(''), [edit, setEdit] = useState(false), [add, setAdd] = useState(false), [enroll, setEnroll] = useState(false), [importing, setImporting] = useState(false), [candidate, setCandidate] = useState(''), [remove, setRemove] = useState(null)
+  const [tab, setTab] = useState('students'), [query, setQuery] = useState(''), [edit, setEdit] = useState(false), [add, setAdd] = useState(false), [enroll, setEnroll] = useState(false), [importing, setImporting] = useState(false), [remove, setRemove] = useState(null)
   if (!canCourse(actor, course)) return <EmptyState title="Không tìm thấy môn hoặc không có quyền" action={<Back to="courses" />} />
   const students = db.students.filter(s => db.enrollments.some(e => e.courseId === id && e.studentId === s.id))
-  const available = db.students.filter(s => !students.some(row => row.id === s.id))
   const filtered = students.filter(s => {
     const checked = db.attendance.some(a => a.courseId === id && a.studentId === s.id && a.date === today())
     return fold(s.name + s.id).includes(fold(query)) && (attendanceFilter === 'all' || (attendanceFilter === 'done' ? checked : !checked))
@@ -104,7 +104,7 @@ export function CourseDetail({ id }) {
     {tab === 'schedule' && <section className="portal-section"><h2>Thời gian học kỳ</h2><p>{dateLabel(course.startDate)} – {dateLabel(course.endDate)}</p><DataTable caption="Lịch học hằng tuần" rows={course.schedules} columns={[{ key: 'day', label: 'Ngày', render: s => dayLabel(s.day) }, { key: 'start', label: 'Bắt đầu' }, { key: 'end', label: 'Kết thúc' }]} /><p className="portal-muted">Ca học đã có điểm danh không thể xóa. Việc chỉnh giờ áp dụng cho lịch tương lai; trạng thái bản ghi đã lưu được giữ nguyên.</p></section>}
     {tab === 'reports' && <section className="portal-section"><h2>Theo dõi môn học</h2><p>Xem lịch sử, tổng hợp học kỳ hoặc chuẩn bị báo cáo gửi người nhận.</p><div className="ui-actions"><Button onClick={() => go(`reports?course=${id}`)}>Xem báo cáo</Button><Button variant="secondary" onClick={() => go(`email?course=${id}`)}>Người nhận & email</Button></div></section>}
     {edit && <EntityForm entity="courses" row={course} onClose={() => setEdit(false)} />}{add && <EntityForm entity="students" courseId={id} onClose={() => setAdd(false)} />}{importing && <ImportDialog entity="students" courseId={id} onClose={() => setImporting(false)} />}
-    {enroll && <Dialog open title="Gán sinh viên có sẵn" description="Hồ sơ và ảnh dùng chung giữa các môn; không tạo lại sinh viên." onClose={() => setEnroll(false)} footer={<><Button variant="secondary" onClick={() => setEnroll(false)}>Đóng</Button><Button disabled={!candidate} onClick={() => task.run(() => { write({ type: 'enroll', courseId: id, studentId: candidate }); setCandidate(''); setEnroll(false) })}>Gán vào môn</Button></>}><ErrorNotice error={task.error} /><Field as="select" label="Sinh viên" value={candidate} onChange={e => setCandidate(e.target.value)} options={[{ value: '', label: 'Chọn sinh viên' }, ...available.map(s => ({ value: s.id, label: `${s.id} · ${s.name}` }))]} /></Dialog>}
+    {enroll && <EnrollDialog courseId={id} onClose={() => setEnroll(false)} />}
     {remove && <Confirm title={`Bỏ ${remove.name} khỏi môn?`} description="Giữ hồ sơ và các môn khác. Lịch sử đã điểm danh vẫn còn trong báo cáo lịch sử; đây là cải thiện FE đề xuất cho backend." onClose={() => setRemove(null)} onConfirm={() => write({ type: 'unenroll', courseId: id, studentId: remove.id })} />}
   </>
 }
