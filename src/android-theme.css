@@ -1,0 +1,46 @@
+/* Ánh xạ theme, shape và màu từ Android; chỉ áp dụng cho màn hình camera hiện có. */
+:root {
+  color: var(--android-colorTextPrimary);
+  background: var(--android-colorBackground);
+}
+
+body { background: var(--android-colorBackground); }
+
+.topbar {
+  background: linear-gradient(135deg, var(--android-gradientStart), var(--android-gradientMiddle), var(--android-gradientEnd));
+  border-bottom: 0;
+}
+
+.brand, .brand span span { color: #123b3b; }
+.brand small { color: #214f4f; }
+.brand-icon { background: var(--android-colorSurface); overflow: hidden; }
+.brand-icon img { display: block; width: 32px; height: 32px; object-fit: contain; }
+.prototype { color: #123b3b; }
+.prototype span { background: #123b3b; }
+.avatar { background: #ffffff80; color: #123b3b; }
+
+.eyebrow, .heading h1 span, .section-kicker { color: var(--android-colorPrimaryDark); }
+.heading p { color: var(--android-colorTextSecondary); }
+.camera-card {
+  background: var(--android-colorCard);
+  border-color: var(--android-colorInputStroke);
+  border-radius: var(--android-card-radius);
+}
+.viewport { border-radius: var(--android-input-layout-radius); }
+.camera-state { color: var(--android-colorTextSecondary); background: var(--android-colorInputBg); }
+.camera-state.on { color: #226c49; background: var(--android-colorSuccessLight); }
+.status-icon { background: var(--android-cardAccentTeal); }
+.status-icon img, .android-notice-icon { display: block; width: 18px; height: 18px; flex: none; }
+.status-icon.success { background: var(--android-colorSuccessLight); }
+.btn { border-radius: var(--android-button-radius); }
+.btn.primary {
+  color: var(--android-colorTextOnPrimary);
+  background: linear-gradient(180deg, var(--android-colorPrimaryDark), #287f7f);
+}
+.btn.primary:hover { background: #246e6e; }
+.btn.secondary {
+  color: var(--android-colorPrimaryDark);
+  background: var(--android-colorBackground);
+  border: var(--android-button-secondary-stroke) solid var(--android-colorPrimary);
+}
+.error { color: var(--android-colorTextPrimary); background: var(--android-colorWarningLight); }
